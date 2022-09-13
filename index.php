@@ -1,18 +1,17 @@
 <?php
 $content = file_get_contents('http://loripsum.net/api');
-$test = explode(" ", $content);
+$array = explode(" ", $content);
 #var_dump($test);
+$znaki=$_POST["znaki"];
+function alfabetycznie($array, $test){
 $i = 1;
-foreach($test as $slowo){
-    echo "[$i] $slowo </br>";
-    if(preg_match('/\b(\w*e\w*)\b/', $slowo, $match) == true){
+sort($array, SORT_NATURAL | SORT_FLAG_CASE);
+foreach($array as $slowo){
+    if(preg_match("/\b(\w*$test\w*)\b/", $slowo, $match) == true){
     echo "[$i] $match[0] </br>";
     $i ++;
     }
 }
-
-#$znaki=$_POST["znaki"];
-#function sortowanie($znaki, $test){
-#    natcasesort($test): bool
-#};
+}
+alfabetycznie($array, $znaki);
 ?>
