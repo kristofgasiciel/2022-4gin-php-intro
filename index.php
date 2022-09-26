@@ -13,5 +13,38 @@ foreach($array as $slowo){
     }
 }
 }
-alfabetycznie($array, $znaki);
+//alfabetycznie($array, $znaki);
+function renderHTMLTable($ilosc, $tak){ 
+    $slowa = explode(" ", $tak);
+$liczba = 1;
+$tabela = '<table>';
+foreach ($slowa as $wyraz){
+    if ($liczba <= $ilosc){
+        if($liczba % $ilosc == 1){
+            $tabela .= "<tr><th>".$wyraz."</th>";
+        }
+        else if ($liczba % $ilosc == 0){
+            $tabela .= "<th>".$wyraz."</th></tr>";
+        }
+        else {
+            $tabela .= "<th>".$wyraz."</th>";
+        }
+     } else {
+            if($liczba % $ilosc == 1){
+                $tabela .= "<tr><td>".$wyraz."</td>";
+            }
+            else if ($liczba % $ilosc == 0){
+                $tabela .= "<td>".$wyraz."</td></tr>";
+            }
+            else {
+                $tabela .= "<td>".$wyraz."</td>";
+            }
+        }
+        $liczba++;
+    }
+    $tabela .= "</table>";
+    return $tabela;
+}
+$kolumna = "10";
+echo renderHTMLTable ($kolumna, $content);
 ?>
