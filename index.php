@@ -14,7 +14,7 @@ foreach($array as $slowo){
 }
 }
 //alfabetycznie($array, $znaki);
-function renderHTMLTable($ilosc, $tak){ 
+function renderHTML($ilosc, $tak){ 
     $slowa = explode(" ", $tak);
 $liczba = 1;
 $tabela = '<table>';
@@ -46,5 +46,67 @@ foreach ($slowa as $wyraz){
     return $tabela;
 }
 $kolumna = "10";
-echo renderHTMLTable ($kolumna, $content);
+echo renderHTML ($kolumna, $content);
+function renderCSV($ilosc, $tak){ 
+    $slowa = explode(" ", $tak);
+$liczba = 1;
+$tabela = '<table>';
+foreach ($slowa as $wyraz){
+    if ($liczba <= $ilosc){
+        if($liczba % $ilosc == 1){
+            $tabela .= "/n".$wyraz."";
+        }
+        else if ($liczba % $ilosc == 0){
+            $tabela .= "/n".$wyraz.";";
+        }
+        else {
+            $tabela .= "<th>".$wyraz."</th>";
+        }
+     } else {
+            if($liczba % $ilosc == 1){
+                $tabela .= "<tr><td>".$wyraz."</td>";
+            }
+            else if ($liczba % $ilosc == 0){
+                $tabela .= "<td>".$wyraz."</td></tr>";
+            }
+            else {
+                $tabela .= "<td>".$wyraz."</td>";
+            }
+        }
+        $liczba++;
+    }
+    $tabela .= "</table>";
+    return $tabela;
+}
+function renderMD($ilosc, $tak){ 
+    $slowa = explode(" ", $tak);
+$liczba = 1;
+$tabela = '<table>';
+foreach ($slowa as $wyraz){
+    if ($liczba <= $ilosc){
+        if($liczba % $ilosc == 1){
+            $tabela .= "/n".$wyraz."";
+        }
+        else if ($liczba % $ilosc == 0){
+            $tabela .= "/n".$wyraz.";";
+        }
+        else {
+            $tabela .= "<th>".$wyraz."</th>";
+        }
+     } else {
+            if($liczba % $ilosc == 1){
+                $tabela .= "<tr><td>".$wyraz."</td>";
+            }
+            else if ($liczba % $ilosc == 0){
+                $tabela .= "<td>".$wyraz."</td></tr>";
+            }
+            else {
+                $tabela .= "<td>".$wyraz."</td>";
+            }
+        }
+        $liczba++;
+    }
+    $tabela .= "</table>";
+    return $tabela;
+}
 ?>
