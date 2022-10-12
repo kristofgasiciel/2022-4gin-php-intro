@@ -20,39 +20,78 @@ class tableTool implements tableToolInterface
         return $sortRes;
     }
     public function renderHTML($cols, $filterString=''){ 
-        $slowa=$this->sortowanie($filterString);
-        $liczba = 1;
-        $tabela = '<table>';
-        foreach ($slowa as $wyraz){
-            if ($liczba <= $cols){
-                if($liczba % $cols == 1){
-                    $tabela .= "<tr><th>".$wyraz."</th>";
-                }
-                else if ($liczba % $cols == 0){
+         $slowa=$this->sortowanie($filterString);
+         $liczba = 1;
+         $tabela = '<table>';
+         foreach ($slowa as $wyraz){
+             if ($liczba <= $cols){
+                 if($liczba % $cols == 1){
+                     $tabela .= "<tr><th>".$wyraz."</th>";
+                 }
+                 else if ($liczba % $cols == 0){
                     $tabela .= "<th>".$wyraz."</th></tr>";
-                }
-                else {
-                    $tabela .= "<th>".$wyraz."</th>";
-                }
+                 }
+                 else {
+                     $tabela .= "<th>".$wyraz."</th>";
+                 }
             } else {
-                    if($liczba % $cols == 1){
-                        $tabela .= "<tr><td>".$wyraz."</td>";
-                    }
-                    else if ($liczba % $cols == 0){
-                        $tabela .= "<td>".$wyraz."</td></tr>";
-                    }
-                    else {
-                        $tabela .= "<td>".$wyraz."</td>";
-                    }
-                }
-                $liczba++;
-            }
+                     if($liczba % $cols == 1){
+                         $tabela .= "<tr><td>".$wyraz."</td>";
+                     }
+                     else if ($liczba % $cols == 0){
+                         $tabela .= "<td>".$wyraz."</td></tr>";
+                     }
+                     else {
+                         $tabela .= "<td>".$wyraz."</td>";
+                     }
+                 }
+                 $liczba++;
+             }
             $tabela .= "</table>";
-            return $tabela;
+             return $tabela;
     }
 
-    public function renderCSV($cols, $filterString=''){}
-    public function renderMD($cols, $filterString=''){}
+    public function renderCSV($cols, $filterString=''){
+        $liczba = 1;
+        $poleceniacsv = '';
+        $sortData = $this->sortowanie($filterString);
+        foreach ($sortData as $word){
+            if ($liczba < $cols){
+                $poleceniacsv .= $word . "\t";
+                $liczba++;
+            } else {
+                $poleceniacsv .= $word . "\n";
+                $liczba = 1;
+            }
+        }
+        return $poleceniacsv;
+    }
+    public function renderMD($cols, $filterString=''){
+        $poleceniaMD = '';
+        $liczba = 0;
+        $sortdata = $this->sortowanie($filterString);
+        $ilekolumn = $cols - 1;
+        foreach ($sortdata as $word){
+            if ($liczba % $cols == 0){
+                $poleceniaMD .= "|";
+                
+            }
+            $poleceniaMD .= $word . '|';
+            if ($liczba % $cols == $ilekolumn){
+                $poleceniaMD .= "\n";
+            }
+            if ($liczba % $cols == $ilekolumn && $liczba < $cols) {
+                $poleceniaMD .= '|';
+                for ($i = 0; $i < $cols; $i++) {
+                    $poleceniaMD .= '---|';
+                }
+                $poleceniaMD .= "\n";
+            }
+            $liczba++;
+        }
+        return $poleceniaMD;
+        
+    }
 
 }
 
